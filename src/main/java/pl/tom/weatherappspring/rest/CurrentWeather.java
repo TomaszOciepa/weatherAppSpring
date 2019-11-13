@@ -18,3 +18,4 @@ public class CurrentWeather {
         return weather;
     }
 }
+
