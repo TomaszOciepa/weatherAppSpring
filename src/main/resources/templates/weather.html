@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Tom's weather</title>
 </head>
 <body>
-$END$
+<div class="container">
+    <h1><a th:href="@{/app}">Tom's weather :)</a></h1>
+
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-8">
+                <h1>Current weather in <span th:text="${weather.getName()}"></span></h1>
+                <div class="row">
+                    <div class="sm">
+                        <img th:src="${iconUrl}">
+                    </div>
+                    <div class="sm">
+                        <br>
+                        <br>
+                        <h2><span th:text="${weather.getMain().getTemp()}"></span>&#8451</h2>
+                    </div>
+                </div>
+
+                <p><span th:text="${weather.getWeather().get(0).getDescription()}"></span></p>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <td>Max temperature</td>
+                        <td><span th:text="${weather.getMain().getTempMax()}"></span>&#8451</td>
+                    </tr>
+                    <tr>
+                        <td>Min temperature</td>
+                        <td><span th:text="${weather.getMain().getTempMin()}"></span>&#8451</td>
+                    </tr>
+                    <tr>
+                        <td>Wind</td>
+                        <td><span th:text="${weather.getWind().getSpeed()}"></span> m/s, <span th:text="${weather.getWind().getDeg()}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Cloudiness</td>
+                        <td><span th:text="${weather.getClouds().getAll()}"></span> %</td>
+                    </tr>
+                    <tr>
+                        <td>Pressure</td>
+                        <td><span th:text="${weather.main.getPressure()}"></span> hpa</td>
+                    </tr>
+                    <tr>
+                        <td>Humidity</td>
+                        <td><span th:text="${weather.main.getHumidity()}"></span> %</td>
+                    </tr>
+                    <tr>
+                        <td>Rain</td>
+                        <td><span th:text="${weather.getRain().get1h()}"></span> mm</td>
+                    </tr>
+                    <tr>
+                        <td>Sunrise</td>
+                        <td><span th:text="${sunrise}"></span> </td>
+                    </tr>
+                    <tr>
+                        <td>Sunset</td>
+                        <td><span th:text="${sunset}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Geo coords</td>
+                        <td>[<span th:text="${weather.getCoord().getLat()}"></span>, <span th:text="${weather.getCoord().getLon()}"></span>]</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

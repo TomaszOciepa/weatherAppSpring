@@ -19,9 +19,15 @@ public class Weather {
     @SerializedName("main")
     @Expose
     private Main main;
+    @SerializedName("visibility")
+    @Expose
+    private Integer visibility;
     @SerializedName("wind")
     @Expose
     private Wind wind;
+    @SerializedName("rain")
+    @Expose
+    private Rain rain;
     @SerializedName("clouds")
     @Expose
     private Clouds clouds;
@@ -76,12 +82,28 @@ public class Weather {
         this.main = main;
     }
 
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
+    }
+
     public Wind getWind() {
         return wind;
     }
 
     public void setWind(Wind wind) {
         this.wind = wind;
+    }
+
+    public Rain getRain() {
+        return rain;
+    }
+
+    public void setRain(Rain rain) {
+        this.rain = rain;
     }
 
     public Clouds getClouds() {
