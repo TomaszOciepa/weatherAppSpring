@@ -14,16 +14,10 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 
 @Controller
-public class WeatherApp {
+public class WeatherController {
 
     @Autowired
     CurrentWeather currentWeather;
-
-    @GetMapping("/app")
-    public String weatherApp() {
-
-        return "index";
-    }
 
     @GetMapping("/weather")
     public String weather(@RequestParam(value = "city", required = false) String city, Model model) throws IOException {
@@ -45,20 +39,20 @@ public class WeatherApp {
 
     private double getRain(Weather weather) {
         double rain;
-        if (weather.getRain() == null){
+        if (weather.getRain() == null) {
             rain = 0;
-        }else {
-            if (weather.getRain().get1h() != null){
+        } else {
+            if (weather.getRain().get1h() != null) {
                 rain = weather.getRain().get1h();
-            } else if (weather.getRain().get2h() != null){
+            } else if (weather.getRain().get2h() != null) {
                 rain = weather.getRain().get2h();
-            } else if (weather.getRain().get3h() != null){
+            } else if (weather.getRain().get3h() != null) {
                 rain = weather.getRain().get3h();
-            } else if (weather.getRain().get4h() != null){
+            } else if (weather.getRain().get4h() != null) {
                 rain = weather.getRain().get4h();
-            } else if (weather.getRain().get5h() != null){
+            } else if (weather.getRain().get5h() != null) {
                 rain = weather.getRain().get5h();
-            }else {
+            } else {
                 rain = 0;
             }
         }
@@ -67,13 +61,13 @@ public class WeatherApp {
 
     private LocalTime getSunrise(Weather weather) {
         Integer seconds = weather.getSys().getSunrise();
-        LocalDateTime sunriseUnix = LocalDateTime.ofEpochSecond(seconds,0, ZoneOffset.ofTotalSeconds(weather.getTimezone()));
+        LocalDateTime sunriseUnix = LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.ofTotalSeconds(weather.getTimezone()));
         return LocalTime.of(sunriseUnix.getHour(), sunriseUnix.getMinute());
     }
 
     private LocalTime getSunset(Weather weather) {
         Integer seconds = weather.getSys().getSunset();
-        LocalDateTime sunsetUnix = LocalDateTime.ofEpochSecond(seconds,0, ZoneOffset.ofTotalSeconds(weather.getTimezone()));
+        LocalDateTime sunsetUnix = LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.ofTotalSeconds(weather.getTimezone()));
         return LocalTime.of(sunsetUnix.getHour(), sunsetUnix.getMinute());
     }
 
