@@ -21,7 +21,7 @@
                     <div class="sm">
                         <br>
                         <br>
-                        <h2><span th:text="${weather.getMain().getTemp()}"></span>&#8451</h2>
+                        <h2><span th:text="${weather.getMain().getTemp().intValue()}"></span>&#8451</h2>
                     </div>
                 </div>
 
@@ -30,11 +30,11 @@
                     <tbody>
                     <tr>
                         <td>Max temperature</td>
-                        <td><span th:text="${weather.getMain().getTempMax()}"></span>&#8451</td>
+                        <td><span th:text="${weather.getMain().getTempMax().intValue()}"></span>&#8451</td>
                     </tr>
                     <tr>
                         <td>Min temperature</td>
-                        <td><span th:text="${weather.getMain().getTempMin()}"></span>&#8451</td>
+                        <td><span th:text="${weather.getMain().getTempMin().intValue()}"></span>&#8451</td>
                     </tr>
                     <tr>
                         <td>Wind</td>
@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <td>Rain</td>
-                        <td><span th:text="${weather.getRain().get1h()}"></span> mm</td>
+                        <td><span th:text="${rain}"></span> mm</td>
                     </tr>
                     <tr>
                         <td>Sunrise</td>
