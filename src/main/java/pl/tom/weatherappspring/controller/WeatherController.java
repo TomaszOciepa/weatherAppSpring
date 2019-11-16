@@ -37,7 +37,7 @@ public class WeatherController {
         return "weather";
     }
 
-    private double getRain(Weather weather) {
+    public double getRain(Weather weather) {
         double rain;
         if (weather.getRain() == null) {
             rain = 0;
@@ -59,13 +59,13 @@ public class WeatherController {
         return rain;
     }
 
-    private LocalTime getSunrise(Weather weather) {
+    public LocalTime getSunrise(Weather weather) {
         Integer seconds = weather.getSys().getSunrise();
         LocalDateTime sunriseUnix = LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.ofTotalSeconds(weather.getTimezone()));
         return LocalTime.of(sunriseUnix.getHour(), sunriseUnix.getMinute());
     }
 
-    private LocalTime getSunset(Weather weather) {
+    public LocalTime getSunset(Weather weather) {
         Integer seconds = weather.getSys().getSunset();
         LocalDateTime sunsetUnix = LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.ofTotalSeconds(weather.getTimezone()));
         return LocalTime.of(sunsetUnix.getHour(), sunsetUnix.getMinute());
