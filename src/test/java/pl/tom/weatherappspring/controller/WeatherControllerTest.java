@@ -7,35 +7,34 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import pl.tom.weatherappspring.model.*;
-import pl.tom.weatherappspring.rest.CurrentWeather;
+import pl.tom.weatherappspring.model.currentWeather.*;
+import pl.tom.weatherappspring.rest.CurrentWeatherRest;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WeatherControllerTest {
 
     @Mock
-    CurrentWeather currentWeather;
+    CurrentWeatherRest currentWeatherRest;
 
     @InjectMocks
     WeatherController weatherController;
 
     @Before
     public void init() throws IOException {
-        given(weatherController.currentWeather.get("Warsaw")).willReturn(prepareMockData());
+        given(weatherController.currentWeatherRest.get("Warsaw")).willReturn(prepareMockData());
     }
 
     @Test
     public void shouldReturnSunrise() throws IOException {
         //when
-        Weather weather = weatherController.currentWeather.get("Warsaw");
+        Weather weather = weatherController.currentWeatherRest.get("Warsaw");
         LocalTime sunrise = weatherController.getSunrise(weather);
         Integer seconds = 1573797357;
         LocalDateTime sunriseUnix = LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.ofTotalSeconds(3600));
@@ -48,7 +47,7 @@ public class WeatherControllerTest {
     @Test
     public void shouldReturnSunset() throws IOException {
         //when
-        Weather weather = weatherController.currentWeather.get("Warsaw");
+        Weather weather = weatherController.currentWeatherRest.get("Warsaw");
         LocalTime sunset = weatherController.getSunset(weather);
         Integer seconds = 1573829113;
         LocalDateTime sunsetUnix = LocalDateTime.ofEpochSecond(seconds, 0, ZoneOffset.ofTotalSeconds(3600));
@@ -61,7 +60,7 @@ public class WeatherControllerTest {
     @Test
     public void shouldReturnRain() throws IOException {
         //when
-        Weather weather = weatherController.currentWeather.get("Warsaw");
+        Weather weather = weatherController.currentWeatherRest.get("Warsaw");
         double rain = weatherController.getRain(weather);
         double expectedRainTrue = 55.0;
         double expectedRainFalse = 35.0;

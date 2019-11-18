@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import pl.tom.weatherappspring.model.Weather;
+import pl.tom.weatherappspring.model.currentWeather.Weather;
 
 import java.io.IOException;
 
@@ -17,12 +17,12 @@ import static org.mockito.BDDMockito.given;
 public class CurrentWeatherTest {
 
     @Spy
-    CurrentWeather currentWeather;
+    CurrentWeatherRest currentWeatherRest;
 
     @Before
     public void init() throws IOException {
         String city = "Gdańsk";
-        given(currentWeather.get(city)).willReturn(prepareMockData());
+        given(currentWeatherRest.get(city)).willReturn(prepareMockData());
     }
 
     private Weather prepareMockData() {
@@ -35,7 +35,7 @@ public class CurrentWeatherTest {
     public void get() throws IOException {
         //when
         String city = "Gdańsk";
-        Weather weather = currentWeather.get(city);
+        Weather weather = currentWeatherRest.get(city);
         //then
         Assert.assertEquals(weather.getName(), "Gdańsk");
         Assert.assertNotEquals(weather.getName(), "Gdynia");

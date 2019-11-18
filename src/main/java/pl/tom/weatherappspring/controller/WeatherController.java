@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.tom.weatherappspring.model.Weather;
-import pl.tom.weatherappspring.rest.CurrentWeather;
+import pl.tom.weatherappspring.model.currentWeather.Weather;
+import pl.tom.weatherappspring.model.forecastWeather.ForecastWeather;
+import pl.tom.weatherappspring.rest.CurrentWeatherRest;
+import pl.tom.weatherappspring.rest.ForecastRest;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,14 +19,18 @@ import java.time.ZoneOffset;
 public class WeatherController {
 
     @Autowired
-    CurrentWeather currentWeather;
+    CurrentWeatherRest currentWeatherRest;
+    @Autowired
+    ForecastRest forecastRest;
 
     @GetMapping("/weather")
     public String weather(@RequestParam(value = "city", required = false) String city, Model model) throws IOException {
-        Weather weather = currentWeather.get(city);
+        Weather weather = currentWeatherRest.get(city);
         LocalTime sunrise = getSunrise(weather);
         LocalTime sunset = getSunset(weather);
         String iconUrl = "http://openweathermap.org/img/wn/" + weather.getWeather().get(0).getIcon() + "@2x.png";
+
+        ForecastWeather forecastWeather = forecastRest.get(city);
 
         double rain = getRain(weather);
 
@@ -33,6 +39,8 @@ public class WeatherController {
         model.addAttribute("sunset", sunset);
         model.addAttribute("iconUrl", iconUrl);
         model.addAttribute("rain", rain);
+        model.addAttribute("forecastWeather", forecastWeather);
+
 
         return "weather";
     }

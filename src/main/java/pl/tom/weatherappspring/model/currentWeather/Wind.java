@@ -1,5 +1,5 @@
 
-package pl.tom.weatherappspring.model;
+package pl.tom.weatherappspring.model.currentWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

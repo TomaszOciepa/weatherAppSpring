@@ -1,5 +1,5 @@
 
-package pl.tom.weatherappspring.model;
+package pl.tom.weatherappspring.model.currentWeather;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

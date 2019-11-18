@@ -1,10 +1,10 @@
 
-package pl.tom.weatherappspring.model;
+package pl.tom.weatherappspring.model.forecastWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Weather_ {
+public class Weather {
 
     @SerializedName("id")
     @Expose

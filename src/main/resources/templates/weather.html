@@ -13,7 +13,7 @@
             <div class="col-2">
             </div>
             <div class="col-8">
-                <h1>Current weather in <span th:text="${weather.getName()}"></span></h1>
+                <h2>Current weather in <span th:text="${weather.getName()}"></span></h2>
                 <div class="row">
                     <div class="sm">
                         <img th:src="${iconUrl}">
@@ -71,6 +71,19 @@
                     </tbody>
                 </table>
 
+                <h2>5 day weather forecast</h2>
+
+                <table class="table">
+                    <tbody>
+                    <tr th:each="forecast: ${forecastWeather.getList()}">
+                        <td th:text="${forecast.getDtTxt()}"></td>
+                        <td><img th:src="${'http://openweathermap.org/img/wn/'+forecast.getWeather().get(0).getIcon()+'@2x.png'}"></td>
+                        <td><span th:text="${forecast.getMain().getTemp().intValue()}"></span>&#8451 <span th:text="${forecast.getWeather().get(0).getDescription()}"></span>
+                            <br><span th:text="${forecast.wind.getSpeed().intValue()}"></span>m/s<br>
+                            clouds: <span th:text="${forecast.getClouds().getAll()}"></span>% <span th:text="${forecast.getMain().getPressure()}"></span>hpa</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="col-2">
 
