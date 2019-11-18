@@ -30,26 +30,29 @@ public class WeatherController {
 
     @GetMapping("/weather")
     public String weather(@RequestParam(value = "city", required = false) String city, Model model) throws IOException {
-        Weather weather = currentWeatherRest.get(city);
-        LocalTime sunrise = getSunrise(weather);
-        LocalTime sunset = getSunset(weather);
-        String iconUrl = "http://openweathermap.org/img/wn/" + weather.getWeather().get(0).getIcon() + "@2x.png";
 
         ForecastWeather forecastWeather = forecastRest.get(city);
+        Weather weather = currentWeatherRest.get(city);
 
-        double rain = getRain(weather);
+        if (weather.getCod() != 404 && !forecastWeather.getCod().equals("404")){
+            LocalTime sunrise = getSunrise(weather);
+            LocalTime sunset = getSunset(weather);
+            String iconUrl = "http://openweathermap.org/img/wn/" + weather.getWeather().get(0).getIcon() + "@2x.png";
 
-        model.addAttribute("weather", weather);
-        model.addAttribute("sunrise", sunrise);
-        model.addAttribute("sunset", sunset);
-        model.addAttribute("iconUrl", iconUrl);
-        model.addAttribute("rain", rain);
-        model.addAttribute("forecastWeather", forecastWeather);
-        model.addAttribute("dateParser", dateParser);
+            double rain = getRain(weather);
+            model.addAttribute("weather", weather);
+            model.addAttribute("sunrise", sunrise);
+            model.addAttribute("sunset", sunset);
+            model.addAttribute("iconUrl", iconUrl);
+            model.addAttribute("rain", rain);
+            model.addAttribute("forecastWeather", forecastWeather);
+            model.addAttribute("dateParser", dateParser);
 
-
-
-        return "weather";
+            return "weather";
+        }else {
+            model.addAttribute("city", city);
+            return "not-found";
+        }
     }
 
     public double getRain(Weather weather) {
