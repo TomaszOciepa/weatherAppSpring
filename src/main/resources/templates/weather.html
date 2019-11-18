@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
     <title>Tom's weather</title>
 </head>
-<body>
+<body class="background">
 <div class="container">
     <h1><a th:href="@{/home}">Tom's weather :)</a></h1>
 
@@ -76,7 +78,6 @@
                 <table class="table">
                     <tbody>
                     <tr th:each="forecast: ${forecastWeather.getList()}">
-<!--                        <td th:text="${forecast.getDtTxt()}"></td>-->
                         <td> <span th:text="${dateParser.getDate(forecast.getDtTxt()).getDayOfWeek()}"></span>, <span th:text="${dateParser.getDate(forecast.getDtTxt()).getDayOfMonth()}"></span> <span th:text="${dateParser.getDate(forecast.getDtTxt()).getMonth()}"></span>
                         <br> <span th:text="${dateParser.getaTime(forecast.getDtTxt()).substring(0, 5)}"></span></td>
                         <td><img th:src="${'http://openweathermap.org/img/wn/'+forecast.getWeather().get(0).getIcon()+'@2x.png'}"></td>
