@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.tom.weatherappspring.model.currentWeather.Weather;
 import pl.tom.weatherappspring.model.forecastWeather.ForecastWeather;
 import pl.tom.weatherappspring.rest.CurrentWeatherRest;
+import pl.tom.weatherappspring.rest.DateParser;
 import pl.tom.weatherappspring.rest.ForecastRest;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class WeatherController {
@@ -22,6 +25,8 @@ public class WeatherController {
     CurrentWeatherRest currentWeatherRest;
     @Autowired
     ForecastRest forecastRest;
+    @Autowired
+    DateParser dateParser;
 
     @GetMapping("/weather")
     public String weather(@RequestParam(value = "city", required = false) String city, Model model) throws IOException {
@@ -40,6 +45,8 @@ public class WeatherController {
         model.addAttribute("iconUrl", iconUrl);
         model.addAttribute("rain", rain);
         model.addAttribute("forecastWeather", forecastWeather);
+        model.addAttribute("dateParser", dateParser);
+
 
 
         return "weather";
