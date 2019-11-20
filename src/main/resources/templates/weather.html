@@ -3,90 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 
     <title>Tom's weather</title>
 </head>
-<body class="background">
+<body class="background" style="min-height: 900px">
 <div class="container">
-    <h1><a th:href="@{/home}">Tom's weather :)</a></h1>
+    <div class="title">
+        <h1><a class="link" th:href="@{/home}">Tom's weather <i class="fas fa-poo-storm"></i></a></h1>
+    </div>
+
+
+    <div class="my-box-weather">
+        <div class="box-content-weather">
+            <div class="row">
+                <div class="col-6">
+                    <div class="city-name">
+                        <span th:text="${weather.getName()}"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="min-max-temp">
+                        <i class="fa fa-long-arrow-up"></i> <span th:text="${weather.getMain().getTempMax().intValue()}"></span>&#8451
+                        <i class="fa fa-long-arrow-down"></i> <span th:text="${weather.getMain().getTempMin().intValue()}"></span>&#8451
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <div class="more">
+                        <div class="day"><span th:text="${localDate.getDayOfWeek()}"></span></div>
+                        <div class="date"><span th:text="${formattedDate}"></span></div>
+                        <div class="wind">Wind <span th:text="${weather.getWind().getSpeed()}"></span> m/s</div>
+                        <div class="cloudiness">Clouds <span th:text="${weather.getClouds().getAll()}"></span> %</div>
+                        <div class="rain">Rain <span th:text="${rain}"></span> mm</div>
+                        <div class="humadity"><i class='fas fa-tint'></i> <span th:text="${weather.main.getHumidity()}"></span> %</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="icon-description">
+                        <img th:src="${iconUrl}" height="170" weight="120">
+                        <p><span th:text="${weather.getWeather().get(0).getDescription()}"></span></p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="pressure"><span th:text="${weather.main.getPressure()}"></span> hpa</div>
+                    <div class="temp">
+                        <span th:text="${weather.getMain().getTemp().intValue()}"></span>&#8451
+                    </div>
+                    <div class="sun"><i class="fas fa-cloud-sun"></i> <span th:text="${sunrise}"></span><br>
+                        <i class='fas fa-cloud-moon'></i> <span th:text="${sunset}"></span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 
         <div class="row">
             <div class="col-2">
             </div>
             <div class="col-8">
-                <h2>Current weather in <span th:text="${weather.getName()}"></span></h2>
-                <div class="row">
-                    <div class="sm">
-                        <img th:src="${iconUrl}">
-                    </div>
-                    <div class="sm">
-                        <br>
-                        <br>
-                        <h2><span th:text="${weather.getMain().getTemp().intValue()}"></span>&#8451</h2>
-                    </div>
-                </div>
+<!--                <h2>5 day weather forecast</h2>-->
 
-                <p><span th:text="${weather.getWeather().get(0).getDescription()}"></span></p>
-                <table class="table table-bordered table-striped">
-                    <tbody>
-                    <tr>
-                        <td>Max temperature</td>
-                        <td><span th:text="${weather.getMain().getTempMax().intValue()}"></span>&#8451</td>
-                    </tr>
-                    <tr>
-                        <td>Min temperature</td>
-                        <td><span th:text="${weather.getMain().getTempMin().intValue()}"></span>&#8451</td>
-                    </tr>
-                    <tr>
-                        <td>Wind</td>
-                        <td><span th:text="${weather.getWind().getSpeed()}"></span> m/s, <span th:text="${weather.getWind().getDeg()}"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Cloudiness</td>
-                        <td><span th:text="${weather.getClouds().getAll()}"></span> %</td>
-                    </tr>
-                    <tr>
-                        <td>Pressure</td>
-                        <td><span th:text="${weather.main.getPressure()}"></span> hpa</td>
-                    </tr>
-                    <tr>
-                        <td>Humidity</td>
-                        <td><span th:text="${weather.main.getHumidity()}"></span> %</td>
-                    </tr>
-                    <tr>
-                        <td>Rain</td>
-                        <td><span th:text="${rain}"></span> mm</td>
-                    </tr>
-                    <tr>
-                        <td>Sunrise</td>
-                        <td><span th:text="${sunrise}"></span> </td>
-                    </tr>
-                    <tr>
-                        <td>Sunset</td>
-                        <td><span th:text="${sunset}"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Geo coords</td>
-                        <td>[<span th:text="${weather.getCoord().getLat()}"></span>, <span th:text="${weather.getCoord().getLon()}"></span>]</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <h2>5 day weather forecast</h2>
-
-                <table class="table">
-                    <tbody>
-                    <tr th:each="forecast: ${forecastWeather.getList()}">
-                        <td> <span th:text="${dateParser.getDate(forecast.getDtTxt()).getDayOfWeek()}"></span>, <span th:text="${dateParser.getDate(forecast.getDtTxt()).getDayOfMonth()}"></span> <span th:text="${dateParser.getDate(forecast.getDtTxt()).getMonth()}"></span>
-                        <br> <span th:text="${dateParser.getaTime(forecast.getDtTxt()).substring(0, 5)}"></span></td>
-                        <td><img th:src="${'http://openweathermap.org/img/wn/'+forecast.getWeather().get(0).getIcon()+'@2x.png'}"></td>
-                        <td><span th:text="${forecast.getMain().getTemp().intValue()}"></span>&#8451 <span th:text="${forecast.getWeather().get(0).getDescription()}"></span>
-                            <br><span th:text="${forecast.wind.getSpeed().intValue()}"></span>m/s<br>
-                            clouds: <span th:text="${forecast.getClouds().getAll()}"></span>% <span th:text="${forecast.getMain().getPressure()}"></span>hpa</td>
-                    </tr>
-                    </tbody>
-                </table>
+<!--                <table class="table">-->
+<!--                    <tbody>-->
+<!--                    <tr th:each="forecast: ${forecastWeather.getList()}">-->
+<!--                        <td> <span th:text="${dateParser.getDate(forecast.getDtTxt()).getDayOfWeek()}"></span>, <span th:text="${dateParser.getDate(forecast.getDtTxt()).getDayOfMonth()}"></span> <span th:text="${dateParser.getDate(forecast.getDtTxt()).getMonth()}"></span>-->
+<!--                        <br> <span th:text="${dateParser.getaTime(forecast.getDtTxt()).substring(0, 5)}"></span></td>-->
+<!--                        <td><img th:src="${'http://openweathermap.org/img/wn/'+forecast.getWeather().get(0).getIcon()+'@2x.png'}"></td>-->
+<!--                        <td><span th:text="${forecast.getMain().getTemp().intValue()}"></span>&#8451 <span th:text="${forecast.getWeather().get(0).getDescription()}"></span>-->
+<!--                            <br><span th:text="${forecast.wind.getSpeed().intValue()}"></span>m/s<br>-->
+<!--                            clouds: <span th:text="${forecast.getClouds().getAll()}"></span>% <span th:text="${forecast.getMain().getPressure()}"></span>hpa</td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
             </div>
             <div class="col-2">
 

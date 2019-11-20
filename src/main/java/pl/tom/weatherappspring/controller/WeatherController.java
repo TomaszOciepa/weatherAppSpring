@@ -35,6 +35,9 @@ public class WeatherController {
 
         ForecastWeather forecastWeather = forecastRest.get(city);
         Weather weather = currentWeatherRest.get(city);
+        LocalDate localDate = LocalDate.now();
+        String formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
 
         if (weather.getCod() != 404 && !forecastWeather.getCod().equals("404")){
             LocalTime sunrise = getSunrise(weather);
@@ -49,6 +52,8 @@ public class WeatherController {
             model.addAttribute("rain", rain);
             model.addAttribute("forecastWeather", forecastWeather);
             model.addAttribute("dateParser", dateParser);
+            model.addAttribute("localDate", localDate);
+            model.addAttribute("formattedDate", formattedDate);
 
             return "weather";
         }else {
