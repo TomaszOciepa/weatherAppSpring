@@ -148,4 +148,18 @@
     font-size: 20px;
 }
 
+.forecast-5-days{
+    margin-top: 60px;
+    margin-left: 140px;
+}
+.forecast{
+    float: left;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    padding: 3px;
+    border-left: 1px solid antiquewhite;
+}
+
 
