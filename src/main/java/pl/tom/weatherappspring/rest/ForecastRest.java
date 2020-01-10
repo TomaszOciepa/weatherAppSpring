@@ -13,7 +13,7 @@ import java.net.URL;
 public class ForecastRest {
 
     public ForecastWeather get(String city) throws IOException {
-        URL url = new URL("https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&APPID=58fb0cad9835fc6ae2462d0a0bfa99c5");
+        URL url = new URL("https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&APPID=5edc3ee7e769f70237953bb6d7580423");
         ForecastWeather weather = new ForecastWeather();
 
         try {
